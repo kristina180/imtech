@@ -3,7 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header/Header";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Footer from "@/components/Footer/Footer";
-import AuthForm from "@/components/Authform/Authform";
+import AuthForm from "../components/Authforms/AuthForm";
 import StoreProvider from "./StoreProvider";
 
 const geistSans = Geist({
