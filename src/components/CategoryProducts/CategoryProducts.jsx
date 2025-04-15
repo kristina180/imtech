@@ -31,7 +31,6 @@ export default function CategoryProducts() {
           (_, i) => i + 1
         )
       : [];
-  console.log(valueProducts);
   useEffect(() => {
     localStorage.setItem("startItem", JSON.stringify(valueProducts));
   }, [valueProducts]);
@@ -96,7 +95,6 @@ export default function CategoryProducts() {
       </div>
 
       <form className={styles.formsearch} onSubmit={handleSubmit}>
-        {/* <div className={styles.formblock}> */}
         <input
           className={styles.input}
           type="text"
@@ -106,8 +104,7 @@ export default function CategoryProducts() {
           autoComplete="off"
           onChange={handleChange}
         ></input>
-        {/* </div> */}
-        {/* <div className={styles.formblock}> */}
+
         <input
           className={styles.input}
           type="text"
@@ -117,7 +114,6 @@ export default function CategoryProducts() {
           autoComplete="off"
           onChange={handleChange}
         ></input>
-        {/* </div> */}
 
         <button type="submit" className={styles.buttonsubmit}>
           Search

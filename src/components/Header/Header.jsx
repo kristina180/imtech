@@ -38,7 +38,6 @@ export default function Header() {
       const filters = value.toLowerCase().split(" ");
       filters.forEach((elem) => {
         if (elem != "") {
-          console.log(elem);
           const filter = products.filter((item) => {
             return (
               item.title.includes(value) ||
@@ -53,6 +52,10 @@ export default function Header() {
 
       setFilterValue([...rezult]);
     }
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
   }
 
   function handleClick() {
@@ -71,7 +74,6 @@ export default function Header() {
 
   useEffect(() => {
     window.addEventListener("click", (e) => {
-      // const form = document.getElementById("form");
       const text = document.getElementById("text");
       const searchinput = document.getElementById("searchinput");
       const searchform = document.getElementById("searchform");
@@ -103,7 +105,7 @@ export default function Header() {
           <div className={styles.username}>{userValue}</div>
         </div>
 
-        <form className={styles.form} id="form">
+        <form className={styles.form} id="form" onSubmit={handleSubmit}>
           <div className={styles.formforsearch} id="searchform">
             <Image
               className={styles.searchicon}
@@ -143,23 +145,6 @@ export default function Header() {
               )}
             </>
           )}
-
-          {/* {searchValue && (
-            <div className={styles.box} id="box">
-              {filterValue.length > 0 ? (
-                filterValue.map((elem) => (
-                  <div key={`values_${elem.id}`} className={styles.boxelem}>
-                    <Image src={elem.image} width={40} height={40} alt="" />
-                    <Link href={`/product/${elem.id}`}>
-                      {elem.title.split(" ").slice(0, 3).join(" ")}
-                    </Link>
-                  </div>
-                ))
-              ) : (
-                <div className={styles.text}>"Nothing searched"</div>
-              )}
-            </div>
-          )} */}
         </form>
 
         <div className={styles.cartfav}>

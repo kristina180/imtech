@@ -25,7 +25,7 @@ export default function Profile() {
     const isEmpty = Object.values(values).some((elem) => !elem);
     if (isEmpty) return;
     dispatch(updateUser(values));
-    console.log(user);
+
     dispatch(toggleForm(false));
   }
 

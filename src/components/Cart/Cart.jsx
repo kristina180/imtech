@@ -15,7 +15,6 @@ export default function Cart() {
   const cart = useSelector((state) => state.user.cart);
   let sum = cart.reduce((sum, elem) => sum + elem.quantity * elem.price, 0);
 
-  console.log(sum);
   return (
     <>
       <div className={styles.section}>

@@ -19,7 +19,6 @@ export default function ProductCard() {
   const favorites = useSelector((state) => state.user.favorites);
   const pathname = usePathname();
   const id = pathname.replace("/product/", "");
-  console.log(cart);
 
   return (
     <>
