@@ -6,17 +6,33 @@ import {
   addToCart,
   removeFromFavorites,
   removeFromCart,
+  checkAuth,
 } from "@/store/userSlice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Favorites() {
   const { push } = useRouter();
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
-  const { cart } = useSelector((state) => state.user);
+  const { cart, favorites, user } = useSelector((state) => state.user);
 
-  const favorites = useSelector((state) => state.user.favorites);
+  useEffect(() => {
+    const cookies = document.cookie
+      .split(";")
+      .find((elem) => elem.includes("token"));
+
+    if (!cookies) {
+      return;
+    } else {
+      const token = cookies.replace("token=", "");
+
+      if (user == null) {
+        dispatch(checkAuth(token));
+      }
+    }
+  }, []);
 
   return (
     <>

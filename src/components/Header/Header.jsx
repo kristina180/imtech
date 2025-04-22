@@ -13,7 +13,6 @@ import { useEffect, useState } from "react";
 import { toggleForm } from "@/store/userSlice";
 
 import styles from "./Header.module.css";
-import { Playwrite_MX } from "next/font/google";
 
 export default function Header() {
   const [userValue, setUserValue] = useState("Guest");

@@ -3,12 +3,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Authform.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  toggleForm,
-  toggleTypeForm,
-  loginUser,
-  getAllUsers,
-} from "@/store/userSlice";
+import { toggleForm, toggleTypeForm, loginUser } from "@/store/userSlice";
 
 export default function UserLoginForm() {
   const dispatch = useDispatch();

@@ -1,19 +1,41 @@
 "use client";
 import styles from "./Cart.module.css";
-import { useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Image from "next/image";
-import { removeFromCart, cleanCart, addToCart } from "@/store/userSlice";
+import {
+  removeFromCart,
+  cleanCart,
+  addToCart,
+  checkAuth,
+} from "@/store/userSlice";
 import { useDispatch } from "react-redux";
-import Link from "next/link";
+
 import { useRouter } from "next/navigation";
 
 export default function Cart() {
   const { push } = useRouter();
   const dispatch = useDispatch();
 
+  const user = useSelector((state) => state.user.user);
   const cart = useSelector((state) => state.user.cart);
   let sum = cart.reduce((sum, elem) => sum + elem.quantity * elem.price, 0);
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split(";")
+      .find((elem) => elem.includes("token"));
+
+    if (!cookies) {
+      return;
+    } else {
+      const token = cookies.replace("token=", "");
+
+      if (user == null) {
+        dispatch(checkAuth(token));
+      }
+    }
+  }, []);
 
   return (
     <>

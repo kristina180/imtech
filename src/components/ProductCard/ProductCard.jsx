@@ -3,11 +3,13 @@ import styles from "./ProductCard.module.css";
 import { usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 import {
   addToCart,
   removeFromCart,
   addToFavorites,
   removeFromFavorites,
+  checkAuth,
 } from "@/store/userSlice";
 import Image from "next/image";
 import Products from "../Products/Products";
@@ -16,9 +18,26 @@ export default function ProductCard() {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
   const cart = useSelector((state) => state.user.cart);
+  const user = useSelector((state) => state.user.user);
   const favorites = useSelector((state) => state.user.favorites);
   const pathname = usePathname();
   const id = pathname.replace("/product/", "");
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split(";")
+      .find((elem) => elem.includes("token"));
+
+    if (!cookies) {
+      return;
+    } else {
+      const token = cookies.replace("token=", "");
+
+      if (user == null) {
+        dispatch(checkAuth(token));
+      }
+    }
+  }, []);
 
   return (
     <>

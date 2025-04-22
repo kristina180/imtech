@@ -1,6 +1,6 @@
 "use client";
 
-import { updateUser, toggleForm } from "@/store/userSlice";
+import { updateUser, toggleForm, checkAuth, logout } from "@/store/userSlice";
 import styles from "./Profile.module.css";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,9 +14,32 @@ export default function Profile() {
     name: "",
     avatar: "",
   });
+  const [logoutValue, setLogout] = useState(false);
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split(";")
+      .find((elem) => elem.includes("token"));
+
+    if (!cookies) {
+      return;
+    } else {
+      const token = cookies.replace("token=", "");
+
+      if (user == null) {
+        dispatch(checkAuth(token));
+      }
+    }
+  }, []);
 
   function handleChange({ target: { value, name } }) {
     setValue({ ...values, [name]: value });
+  }
+
+  function logoutClick() {
+    document.cookie = "token=; Max-Age=-1;";
+    setLogout(true);
+    dispatch(logout());
   }
 
   function handleSubmit(e) {
@@ -90,6 +113,9 @@ export default function Profile() {
           </button>
         </form>
       )}
+      <button type="submit" className={styles.logout} onClick={logoutClick}>
+        Log out
+      </button>
     </div>
   );
 }

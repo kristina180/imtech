@@ -18,6 +18,14 @@ export const createUser = createAsyncThunk(
         },
         { headers: { "Content-Type": "application/json" } }
       );
+      const response_token = await axios.post(
+        `${USER_URL}auth/login`,
+        payload,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      document.cookie = `token=${response_token.data.access_token}; max-age=3600`;
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -44,10 +52,26 @@ export const loginUser = createAsyncThunk(
       const response = await axios.post(`${USER_URL}auth/login`, payload, {
         headers: { "Content-Type": "application/json" },
       });
+      document.cookie = `token=${response.data.access_token}; max-age=3600`;
       const login = await axios(`${USER_URL}auth/profile`, {
         headers: { Authorization: `Bearer ${response.data.access_token}` },
       });
-      return login.data;
+
+      return { data: login.data, token: response.data.access_token };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const checkAuth = createAsyncThunk(
+  "user/checkAuth",
+  async function (payload, { rejectWithValue }) {
+    try {
+      const response = await axios(`${USER_URL}auth/profile`, {
+        headers: { Authorization: `Bearer ${payload}` },
+      });
+      return { data: response.data, token: payload };
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -80,6 +104,7 @@ const userSlice = createSlice({
   initialState: {
     allusers: null,
     user: null,
+    token: null,
     cart: [],
     favorites: [],
     formType: "signup",
@@ -91,6 +116,10 @@ const userSlice = createSlice({
     },
     toggleForm(state, action) {
       state.showForm = action.payload;
+    },
+    logout(state, action) {
+      state.user = null;
+      state.token = null;
     },
 
     addToCart(state, action) {
@@ -156,9 +185,13 @@ const userSlice = createSlice({
     builder.addCase(getAllUsers.fulfilled, (state, action) => {
       state.allusers = action.payload;
     });
-
+    builder.addCase(checkAuth.fulfilled, (state, action) => {
+      state.user = action.payload.data;
+      state.token = action.payload.token;
+    });
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.user = action.payload;
+      state.user = action.payload.data;
+      state.token = action.payload.token;
     });
     builder.addCase(updateUser.fulfilled, (state, action) => {
       state.user = action.payload;
@@ -174,6 +207,7 @@ export const {
   removeFromFavorites,
   toggleForm,
   toggleTypeForm,
+  logout,
 } = userSlice.actions;
 
 export default userSlice.reducer;

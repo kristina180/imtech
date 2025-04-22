@@ -3,14 +3,17 @@
 import styles from "./CategoryProducts.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { checkAuth } from "@/store/userSlice";
 
 export default function CategoryProducts() {
+  const dispatch = useDispatch();
   const pathname = usePathname();
   const category = pathname.replace("/category/", "");
   const { products } = useSelector((state) => state.products);
+  const { user } = useSelector((state) => state.user);
   const category_products =
     products.length > 0
       ? products.filter((elem) => elem.category == category)
@@ -31,9 +34,26 @@ export default function CategoryProducts() {
           (_, i) => i + 1
         )
       : [];
+
   useEffect(() => {
     localStorage.setItem("startItem", JSON.stringify(valueProducts));
   }, [valueProducts]);
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split(";")
+      .find((elem) => elem.includes("token"));
+
+    if (!cookies) {
+      return;
+    } else {
+      const token = cookies.replace("token=", "");
+
+      if (user == null) {
+        dispatch(checkAuth(token));
+      }
+    }
+  }, []);
 
   function handleChange({ target: { name, value } }) {
     setInputValue({ ...inputValue, [name]: String(value) });

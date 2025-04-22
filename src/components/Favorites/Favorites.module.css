@@ -130,10 +130,13 @@
   .firsttitle {
     font-size: 3vw;
   }
-  .title,
+
   .priceone,
   .quantitycount {
     font-size: 1.5vw;
+  }
+  .title {
+    font-size: 1.3vw;
   }
   .quantity button {
     border-radius: 3px;

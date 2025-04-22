@@ -4,13 +4,31 @@ import Categories from "../Categories/Categories";
 import Poster from "../Poster/Poster";
 import Products from "../Products/Products";
 import PosterSecond from "../PosterSecond/PosterSecond";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { useMemo } from "react";
 import { useEffect } from "react";
+import { checkAuth } from "@/store/userSlice";
 
 export default function Home() {
   const { products, category } = useSelector((state) => state);
+  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split(";")
+      .find((elem) => elem.includes("token"));
+
+    if (!cookies) {
+      return;
+    } else {
+      const token = cookies.replace("token=", "");
+
+      if (user == null) {
+        dispatch(checkAuth(token));
+      }
+    }
+  }, []);
 
   return (
     <div className={styles.page}>
