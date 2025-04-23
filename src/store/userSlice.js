@@ -105,6 +105,7 @@ const userSlice = createSlice({
     allusers: null,
     user: null,
     token: null,
+    logout: false,
     cart: [],
     favorites: [],
     formType: "signup",
@@ -117,9 +118,10 @@ const userSlice = createSlice({
     toggleForm(state, action) {
       state.showForm = action.payload;
     },
-    logout(state, action) {
+    logoutChange(state, action) {
       state.user = null;
       state.token = null;
+      state.logout = true;
     },
 
     addToCart(state, action) {
@@ -181,6 +183,7 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(createUser.fulfilled, (state, action) => {
       state.user = action.payload;
+      state.logout = false;
     });
     builder.addCase(getAllUsers.fulfilled, (state, action) => {
       state.allusers = action.payload;
@@ -188,10 +191,12 @@ const userSlice = createSlice({
     builder.addCase(checkAuth.fulfilled, (state, action) => {
       state.user = action.payload.data;
       state.token = action.payload.token;
+      state.logout = false;
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.user = action.payload.data;
       state.token = action.payload.token;
+      state.logout = false;
     });
     builder.addCase(updateUser.fulfilled, (state, action) => {
       state.user = action.payload;
@@ -207,7 +212,7 @@ export const {
   removeFromFavorites,
   toggleForm,
   toggleTypeForm,
-  logout,
+  logoutChange,
 } = userSlice.actions;
 
 export default userSlice.reducer;

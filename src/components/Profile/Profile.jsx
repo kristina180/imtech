@@ -1,12 +1,17 @@
 "use client";
 
-import { updateUser, toggleForm, checkAuth, logout } from "@/store/userSlice";
+import {
+  updateUser,
+  toggleForm,
+  checkAuth,
+  logoutChange,
+} from "@/store/userSlice";
 import styles from "./Profile.module.css";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Profile() {
-  const { user } = useSelector(({ user }) => user);
+  const { user, logout } = useSelector(({ user }) => user);
   const dispatch = useDispatch();
   const [values, setValue] = useState({
     email: "",
@@ -14,7 +19,7 @@ export default function Profile() {
     name: "",
     avatar: "",
   });
-  const [logoutValue, setLogout] = useState(false);
+  const [logoutValue, setLogout] = useState(user ? false : true);
 
   useEffect(() => {
     const cookies = document.cookie
@@ -39,7 +44,7 @@ export default function Profile() {
   function logoutClick() {
     document.cookie = "token=; Max-Age=-1;";
     setLogout(true);
-    dispatch(logout());
+    dispatch(logoutChange());
   }
 
   function handleSubmit(e) {
@@ -111,11 +116,17 @@ export default function Profile() {
           <button type="submit" className={styles.submit}>
             Update
           </button>
+          {user && (
+            <button
+              type="submit"
+              className={`${styles.submit} ${styles.logout}`}
+              onClick={logoutClick}
+            >
+              Log out
+            </button>
+          )}
         </form>
       )}
-      <button type="submit" className={styles.logout} onClick={logoutClick}>
-        Log out
-      </button>
     </div>
   );
 }

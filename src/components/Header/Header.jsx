@@ -21,7 +21,7 @@ export default function Header() {
   const [searchValue, setSearchValue] = useState("");
   const cart = useSelector((state) => state.user.cart);
   const products = useSelector((state) => state.products.products);
-  const user = useSelector((state) => state.user.user);
+  const { user, logout } = useSelector((state) => state.user);
   const { push } = useRouter();
   const dispatch = useDispatch();
 
@@ -70,6 +70,12 @@ export default function Header() {
     setUserValue(user.name);
     setAvatar(user.avatar);
   }, [user]);
+
+  useEffect(() => {
+    if (!logout) return;
+    setUserValue("Guest");
+    setAvatar(avatarImg);
+  }, [logout]);
 
   useEffect(() => {
     window.addEventListener("click", (e) => {

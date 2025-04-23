@@ -109,6 +109,10 @@
   color: #9497a3;
   font-size: 20px;
 }
+.logout {
+  margin-top: 5px;
+  background-color: #484a55;
+}
 
 @media screen and (max-width: 1200px) {
   .profile {
