@@ -25,7 +25,7 @@ export const createUser = createAsyncThunk(
           headers: { "Content-Type": "application/json" },
         }
       );
-      document.cookie = `token=${response_token.data.access_token}; max-age=3600`;
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -52,7 +52,7 @@ export const loginUser = createAsyncThunk(
       const response = await axios.post(`${USER_URL}auth/login`, payload, {
         headers: { "Content-Type": "application/json" },
       });
-      document.cookie = `token=${response.data.access_token}; max-age=3600`;
+
       const login = await axios(`${USER_URL}auth/profile`, {
         headers: { Authorization: `Bearer ${response.data.access_token}` },
       });

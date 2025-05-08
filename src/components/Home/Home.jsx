@@ -14,22 +14,6 @@ export default function Home() {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const cookies = document.cookie
-      .split(";")
-      .find((elem) => elem.includes("token"));
-
-    if (!cookies) {
-      return;
-    } else {
-      const token = cookies.replace("token=", "");
-
-      if (user == null) {
-        dispatch(checkAuth(token));
-      }
-    }
-  }, []);
-
   return (
     <div className={styles.page}>
       <Poster />

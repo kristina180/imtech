@@ -13,6 +13,7 @@ import {
 } from "@/store/userSlice";
 import Image from "next/image";
 import Products from "../Products/Products";
+import { notPhoto } from "@/utils/constants";
 
 export default function ProductCard() {
   const dispatch = useDispatch();
@@ -22,22 +23,6 @@ export default function ProductCard() {
   const favorites = useSelector((state) => state.user.favorites);
   const pathname = usePathname();
   const id = pathname.replace("/product/", "");
-
-  useEffect(() => {
-    const cookies = document.cookie
-      .split(";")
-      .find((elem) => elem.includes("token"));
-
-    if (!cookies) {
-      return;
-    } else {
-      const token = cookies.replace("token=", "");
-
-      if (user == null) {
-        dispatch(checkAuth(token));
-      }
-    }
-  }, []);
 
   return (
     <>
@@ -54,40 +39,60 @@ export default function ProductCard() {
             return (
               <div className={styles.productCart} key={`${id}_cart`}>
                 <div className={styles.images}>
-                  <Image
+                  <img
                     src={image}
                     alt=""
                     width={370}
                     height={370}
                     className={styles.mainimage}
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null;
+                      currentTarget.src = notPhoto;
+                    }}
                   />
-                  <Image
+                  <img
                     src={image}
                     alt=""
                     width={85}
                     height={85}
                     className={styles.miniimage}
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null;
+                      currentTarget.src = notPhoto;
+                    }}
                   />
-                  <Image
+                  <img
                     src={image}
                     alt=""
                     width={85}
                     height={85}
                     className={styles.miniimage}
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null;
+                      currentTarget.src = notPhoto;
+                    }}
                   />
-                  <Image
+                  <img
                     src={image}
                     alt=""
                     width={85}
                     height={85}
                     className={styles.miniimage}
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null;
+                      currentTarget.src = notPhoto;
+                    }}
                   />
-                  <Image
+                  <img
                     src={image}
                     alt=""
                     width={85}
                     height={85}
                     className={styles.miniimage}
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null;
+                      currentTarget.src = notPhoto;
+                    }}
                   />
                 </div>
                 <div className={styles.content}>

@@ -21,22 +21,6 @@ export default function Profile() {
   });
   const [logoutValue, setLogout] = useState(user ? false : true);
 
-  useEffect(() => {
-    const cookies = document.cookie
-      .split(";")
-      .find((elem) => elem.includes("token"));
-
-    if (!cookies) {
-      return;
-    } else {
-      const token = cookies.replace("token=", "");
-
-      if (user == null) {
-        dispatch(checkAuth(token));
-      }
-    }
-  }, []);
-
   function handleChange({ target: { value, name } }) {
     setValue({ ...values, [name]: value });
   }

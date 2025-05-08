@@ -2,11 +2,12 @@
 
 import styles from "./CategoryProducts.module.css";
 import Link from "next/link";
-import Image from "next/image";
+
 import { useSelector, useDispatch } from "react-redux";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { checkAuth } from "@/store/userSlice";
+import { notPhoto } from "@/utils/constants";
 
 export default function CategoryProducts() {
   const dispatch = useDispatch();
@@ -149,12 +150,16 @@ export default function CategoryProducts() {
               className={styles.linkproduct}
             >
               <div className={styles.divimage}>
-                <Image
+                <img
                   src={image}
                   alt=""
                   width={170}
                   height={170}
                   className={styles.image}
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null;
+                    currentTarget.src = notPhoto;
+                  }}
                 />
               </div>
 

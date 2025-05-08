@@ -18,22 +18,6 @@ export default function Favorites() {
   const { products } = useSelector((state) => state.products);
   const { cart, favorites, user } = useSelector((state) => state.user);
 
-  useEffect(() => {
-    const cookies = document.cookie
-      .split(";")
-      .find((elem) => elem.includes("token"));
-
-    if (!cookies) {
-      return;
-    } else {
-      const token = cookies.replace("token=", "");
-
-      if (user == null) {
-        dispatch(checkAuth(token));
-      }
-    }
-  }, []);
-
   return (
     <>
       <div className={styles.section}>
@@ -98,15 +82,6 @@ export default function Favorites() {
                       ✕
                     </button>
                   </div>
-
-                  {/* <button
-                      className={styles.buttonCart}
-                      onClick={() => {
-                        dispatch(addToCart({ id, products }));
-                      }}
-                    >
-                      Add to cart
-                    </button> */}
                 </div>
               );
             })

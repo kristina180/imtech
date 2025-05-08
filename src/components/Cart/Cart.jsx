@@ -21,22 +21,6 @@ export default function Cart() {
   const cart = useSelector((state) => state.user.cart);
   let sum = cart.reduce((sum, elem) => sum + elem.quantity * elem.price, 0);
 
-  useEffect(() => {
-    const cookies = document.cookie
-      .split(";")
-      .find((elem) => elem.includes("token"));
-
-    if (!cookies) {
-      return;
-    } else {
-      const token = cookies.replace("token=", "");
-
-      if (user == null) {
-        dispatch(checkAuth(token));
-      }
-    }
-  }, []);
-
   return (
     <>
       <div className={styles.section}>
