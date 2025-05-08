@@ -37,23 +37,32 @@ export default function Header() {
   function hanleSearch({ target: { value } }) {
     setSearchValue(value);
     let rezult = [];
+
     if (value != "") {
       const filters = value.toLowerCase().split(" ");
-      filters.forEach((elem) => {
-        if (elem != "") {
-          const filter = products.filter((item) => {
-            return (
-              item.title.includes(value) ||
+
+      if (filters.length > 1) {
+        rezult = products.filter((item) =>
+          filters.every(
+            (elem) =>
               item.title.toLowerCase().includes(elem) ||
               item.brand.includes(elem) ||
+              item.description.includes(elem) ||
               item.model.toLowerCase().includes(elem)
-            );
-          });
-          rezult = new Set(addArr(rezult, filter));
-        }
-      });
-
-      setFilterValue([...rezult]);
+          )
+        );
+      } else {
+        rezult = products.filter((item) =>
+          filters.some(
+            (elem) =>
+              item.title.toLowerCase().includes(elem) ||
+              item.brand.includes(elem) ||
+              item.description.includes(elem) ||
+              item.model.toLowerCase().includes(elem)
+          )
+        );
+      }
+      setFilterValue(rezult);
     }
   }
 
