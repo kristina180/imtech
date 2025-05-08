@@ -1,6 +1,7 @@
 import Link from "next/link";
-import styles from "./Categories.module.css";
 import Image from "next/image";
+
+import styles from "./Categories.module.css";
 
 export default function Categories({
   titlefirst,

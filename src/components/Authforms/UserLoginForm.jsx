@@ -1,22 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import styles from "./Authform.module.css";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { toggleForm, toggleTypeForm, loginUser } from "@/store/userSlice";
 
+import styles from "./Authform.module.css";
+
 export default function UserLoginForm() {
-  const dispatch = useDispatch();
   const [values, setValue] = useState({
     email: "",
     password: "",
   });
 
+  let allusers = useSelector((state) => state.user.allusers);
+
+  const dispatch = useDispatch();
+
   function handleChange({ target: { value, name } }) {
     setValue({ ...values, [name]: value });
   }
-
-  let allusers = useSelector((state) => state.user.allusers);
 
   function handleSubmit(e) {
     e.preventDefault();

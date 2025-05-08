@@ -1,22 +1,24 @@
 "use client";
-import styles from "./Favorites.module.css";
-import { useSelector } from "react-redux";
+
 import Image from "next/image";
+
+import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   addToCart,
   removeFromFavorites,
   removeFromCart,
-  checkAuth,
 } from "@/store/userSlice";
-import { useDispatch } from "react-redux";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+
+import styles from "./Favorites.module.css";
 
 export default function Favorites() {
+  const { products } = useSelector((state) => state.products);
+  const { cart, favorites } = useSelector((state) => state.user);
+
   const { push } = useRouter();
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.products);
-  const { cart, favorites, user } = useSelector((state) => state.user);
 
   return (
     <>

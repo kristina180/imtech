@@ -1,25 +1,23 @@
 "use client";
 
-import {
-  updateUser,
-  toggleForm,
-  checkAuth,
-  logoutChange,
-} from "@/store/userSlice";
-import styles from "./Profile.module.css";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import { updateUser, toggleForm, logoutChange } from "@/store/userSlice";
+
+import styles from "./Profile.module.css";
+
 export default function Profile() {
-  const { user, logout } = useSelector(({ user }) => user);
-  const dispatch = useDispatch();
   const [values, setValue] = useState({
     email: "",
     password: "",
     name: "",
     avatar: "",
   });
-  const [logoutValue, setLogout] = useState(user ? false : true);
+
+  const { user } = useSelector(({ user }) => user);
+
+  const dispatch = useDispatch();
 
   function handleChange({ target: { value, name } }) {
     setValue({ ...values, [name]: value });
@@ -27,7 +25,6 @@ export default function Profile() {
 
   function logoutClick() {
     document.cookie = "token=; Max-Age=-1;";
-    setLogout(true);
     dispatch(logoutChange());
   }
 

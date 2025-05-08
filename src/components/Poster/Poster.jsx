@@ -1,11 +1,15 @@
 "use client";
-import styles from "./Poster.module.css";
-import headphonePoster from "../../../public/poster_headphones.svg";
+
 import Image from "next/image";
+
 import { useRouter } from "next/navigation";
+
+import headphonePoster from "../../../public/poster_headphones.svg";
+import styles from "./Poster.module.css";
 
 export default function Poster() {
   const { push } = useRouter();
+
   return (
     <div className={styles.poster}>
       <div className={styles.product}>

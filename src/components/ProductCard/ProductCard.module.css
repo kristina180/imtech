@@ -11,7 +11,8 @@
 
 .images {
   width: 55%;
-  min-height: 100%;
+  /* min-height: 100%; */
+  min-height: 390px;
   display: grid;
   grid-template-columns: 4fr 1fr;
   /* grid-template-rows: repeat(auto-fit, minmax(65px, 1fr)); */
@@ -35,34 +36,6 @@
   width: 100%;
   height: 100%;
 }
-
-/* .images {
-  width: 55%;
-  display: flex;
-  flex-direction: row;
-  border-radius: 5px;
-}
-
-.mainimage {
-  width: 25vw;
-  height: 25vw;
-}
-.miniimages {
-  width: 10vw;
-  height: 10vw;
-}
-
-.images img {
-  border-radius: 5px;
-}
-
-.images div {
-  height: 25vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-left: 10px;
-} */
 
 .content {
   width: 45%;
@@ -105,7 +78,7 @@
   border: none;
   color: #f6f6f7;
   width: 40%;
-  font-size: 1.5vw;
+  font-size: 1.3vw;
 }
 
 .quantity {
@@ -118,7 +91,7 @@
   justify-content: space-between;
 }
 .quantitycount {
-  font-size: 100%;
+  font-size: 80%;
   width: 4vw;
   text-align: center;
 }
@@ -148,7 +121,7 @@
   border: none;
   color: #f6f6f7;
   width: 50%;
-  font-size: 1.5vw;
+  font-size: 1.3vw;
 }
 
 @media screen and (max-width: 1200px) {
@@ -161,6 +134,15 @@
   .quantity button {
     border-radius: 3px;
   }
+  .images {
+    min-height: 310px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .images {
+    min-height: 230px;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -170,6 +152,7 @@
 
   .images {
     gap: 2px;
+    min-height: 180px;
   }
 
   .images img,
@@ -192,14 +175,32 @@
   .colorProduct {
     font-size: 150%;
   }
+
   .priceProduct {
     font-size: 170%;
   }
+
   .quantity button {
-    font-size: 50%;
+    font-size: 30px;
+  }
+
+  .quantitycount {
+    font-size: 30px;
+    width: 20%;
   }
 
   .buttons {
     height: 10%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .images {
+    min-height: 150px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .images {
+    min-height: 110px;
   }
 }

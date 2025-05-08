@@ -1,16 +1,17 @@
 "use client";
-import styles from "./Sidebar.module.css";
+
 import Link from "next/link";
+
 import { usePathname } from "next/navigation";
-import { use } from "react";
-import { getCategoryProducts } from "@/store/categorySlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+
+import styles from "./Sidebar.module.css";
 
 export default function Sidebar() {
   const rezult = useSelector((state) => state.category.category);
+
   const pathname = usePathname();
   let category = pathname.replace("/category/", "");
-  const dispatch = useDispatch();
 
   return (
     <div className={styles.sidebar}>

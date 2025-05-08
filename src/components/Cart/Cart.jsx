@@ -1,24 +1,20 @@
 "use client";
-import styles from "./Cart.module.css";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import Image from "next/image";
-import {
-  removeFromCart,
-  cleanCart,
-  addToCart,
-  checkAuth,
-} from "@/store/userSlice";
-import { useDispatch } from "react-redux";
 
+import Image from "next/image";
+
+import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
+import { removeFromCart, cleanCart, addToCart } from "@/store/userSlice";
+
+import styles from "./Cart.module.css";
+
 export default function Cart() {
+  const { cart, user } = useSelector((state) => state.user);
+
   const { push } = useRouter();
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user.user);
-  const cart = useSelector((state) => state.user.cart);
   let sum = cart.reduce((sum, elem) => sum + elem.quantity * elem.price, 0);
 
   return (

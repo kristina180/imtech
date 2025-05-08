@@ -1,14 +1,17 @@
 "use client";
-import styles from "./Footer.module.css";
-import logoImage from "../../../public/logo.svg";
-import Link from "next/link";
+
 import Image from "next/image";
+
+import { useRouter } from "next/navigation";
+
+import logoImage from "../../../public/logo.svg";
 import youtubeIcon from "../../../public/youtubicon.svg";
 import instaIcon from "../../../public/instaicon.svg";
-import { useRouter } from "next/navigation";
+import styles from "./Footer.module.css";
 
 export default function Footer() {
   const { push } = useRouter();
+
   return (
     <div className={styles.footer}>
       <Image

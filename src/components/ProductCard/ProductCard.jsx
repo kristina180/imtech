@@ -1,26 +1,26 @@
 "use client";
-import styles from "./ProductCard.module.css";
+
+import Products from "../Products/Products";
+
 import { usePathname } from "next/navigation";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   addToCart,
   removeFromCart,
   addToFavorites,
   removeFromFavorites,
-  checkAuth,
 } from "@/store/userSlice";
-import Image from "next/image";
-import Products from "../Products/Products";
+
 import { notPhoto } from "@/utils/constants";
+import styles from "./ProductCard.module.css";
 
 export default function ProductCard() {
-  const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
-  const cart = useSelector((state) => state.user.cart);
-  const user = useSelector((state) => state.user.user);
-  const favorites = useSelector((state) => state.user.favorites);
+  const { cart, favorites } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
   const pathname = usePathname();
   const id = pathname.replace("/product/", "");
 

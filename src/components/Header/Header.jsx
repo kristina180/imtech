@@ -2,16 +2,18 @@
 
 import Link from "next/link";
 import Image from "next/image";
+
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { toggleForm } from "@/store/userSlice";
+
 import logoImage from "../../../public/logo.svg";
 import avatarImg from "../../../public/avatar.svg";
 import iconSearch from "../../../public/icon_search.svg";
 import iconFavorites from "../../../public/favorites.svg";
 import iconCart from "../../../public/cart.svg";
-import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { toggleForm } from "@/store/userSlice";
-
 import styles from "./Header.module.css";
 
 export default function Header() {
@@ -19,9 +21,11 @@ export default function Header() {
   const [filterValue, setFilterValue] = useState([]);
   const [userAvatar, setAvatar] = useState(avatarImg);
   const [searchValue, setSearchValue] = useState("");
+
   const cart = useSelector((state) => state.user.cart);
   const products = useSelector((state) => state.products.products);
   const { user, logout } = useSelector((state) => state.user);
+
   const { push } = useRouter();
   const dispatch = useDispatch();
 

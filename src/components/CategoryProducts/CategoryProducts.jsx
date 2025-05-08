@@ -1,29 +1,30 @@
 "use client";
 
-import styles from "./CategoryProducts.module.css";
 import Link from "next/link";
 
-import { useSelector, useDispatch } from "react-redux";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { checkAuth } from "@/store/userSlice";
+import { useSelector } from "react-redux";
+
 import { notPhoto } from "@/utils/constants";
+import styles from "./CategoryProducts.module.css";
 
 export default function CategoryProducts() {
-  const dispatch = useDispatch();
+  const [inputValue, setInputValue] = useState({
+    name: "",
+    price: "",
+  });
+
+  const { products } = useSelector((state) => state.products);
+
   const pathname = usePathname();
   const category = pathname.replace("/category/", "");
-  const { products } = useSelector((state) => state.products);
-  const { user } = useSelector((state) => state.user);
+
   const category_products =
     products.length > 0
       ? products.filter((elem) => elem.category == category)
       : JSON.parse(localStorage.getItem("startItem")) || "";
 
-  const [inputValue, setInputValue] = useState({
-    name: "",
-    price: "",
-  });
   const [valueProducts, setValueProducts] = useState([...category_products]);
   const [valueView, setValueView] = useState(valueProducts.slice(0, 10));
   const [page, setPage] = useState(1);
@@ -39,22 +40,6 @@ export default function CategoryProducts() {
   useEffect(() => {
     localStorage.setItem("startItem", JSON.stringify(valueProducts));
   }, [valueProducts]);
-
-  useEffect(() => {
-    const cookies = document.cookie
-      .split(";")
-      .find((elem) => elem.includes("token"));
-
-    if (!cookies) {
-      return;
-    } else {
-      const token = cookies.replace("token=", "");
-
-      if (user == null) {
-        dispatch(checkAuth(token));
-      }
-    }
-  }, []);
 
   function handleChange({ target: { name, value } }) {
     setInputValue({ ...inputValue, [name]: String(value) });

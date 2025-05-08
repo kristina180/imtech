@@ -1,12 +1,16 @@
 "use client";
-import styles from "./PosterSecond.module.css";
+
 import Image from "next/image";
+
+import { useRouter } from "next/navigation";
+
 import PostSecFirst from "../../../public/posterSecond_1.svg";
 import PostSecSecond from "../../../public/posterSecond_2.svg";
-import { useRouter } from "next/navigation";
+import styles from "./PosterSecond.module.css";
 
 export default function PosterSecond() {
   const { push } = useRouter();
+
   return (
     <div className={styles.poster}>
       <div className={styles.content}>

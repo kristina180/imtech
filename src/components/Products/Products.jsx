@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+
 import styles from "./Products.module.css";
 
 export default function Products({
@@ -9,6 +10,7 @@ export default function Products({
   buttontext,
 }) {
   const list = products.filter((_, i) => i < amount);
+
   return (
     <div className={styles.products}>
       {titlefirst && <div className={styles.titlefirst}>{titlefirst}</div>}

@@ -1,9 +1,9 @@
 .section {
   background-color: #2d2f39;
   padding: 10px;
-
   border-radius: 5px;
   box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
 .firsttitle {

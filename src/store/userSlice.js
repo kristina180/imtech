@@ -25,7 +25,6 @@ export const createUser = createAsyncThunk(
           headers: { "Content-Type": "application/json" },
         }
       );
-
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
